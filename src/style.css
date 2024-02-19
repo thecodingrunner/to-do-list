@@ -27,6 +27,8 @@ body, html {
   margin: 20px;
   width: 70vw;
   height: 80vh;
+  display: flex;
+  flex-direction: column;
 }
 
 img {
@@ -103,4 +105,16 @@ label {
   margin-bottom: 10px;
   display: flex;
   justify-content: space-between;
+}
+
+.listItem {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  background-color: rgba(0,0,0,0.2);
+  border-radius: 10px;
+  color: white;
+  height: auto;
+  padding: 10px;
+  margin: 10px;
 }
