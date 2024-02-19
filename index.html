@@ -29,6 +29,28 @@
     <h1 class="projectName">Project Name</h1>
     <div class="itemBox"></div>
   </div>
-  <script src="main.js"></script>
+  <script src="main.js" defer></script>
+
+  <!-- Form dialog box -->
+  <dialog>
+    <form id="form">
+      <div class="nowrap">
+        <label for="title">Title</label><input type="text" name="title" id="title">
+      </div>
+      <div class="nowrap">
+        <label for="description">Description</label><input type="text" name="description" id="description">
+      </div>
+      <div class="nowrap">
+        <label for="date">Due Date</label><input type="date" name="date" id="date">
+      </div>
+      <div class="nowrap">
+        <label for="priority">Priority</label><input type="number" name="priority" id="priority">
+      </div>
+      <div class="nowrap">
+        <button type="submit" class="submit">Submit</button>
+        <button type="button" class="closeForm">Close</button>
+      </div>
+    </form>
+  </dialog>
 </body>
 </html>
