@@ -1,11 +1,15 @@
 import displayTask from "./displayTask";
 import addToNotesObject from "./addToNotesObject";
 import makeProjectObject from "./makeProjectObject";
+import displayProject from "./displayProject";
+import clear from "./clear"
+
 
 let projectNum = 1;
 let noteArrayDefault = [
   []
 ];
+let currentProject = 0;
 // Prevent submit page refresh defaults 
 const form = document.getElementById("form");
 function handleForm(event) { event.preventDefault(); } 
@@ -54,11 +58,10 @@ closeProjectForm.addEventListener('click', () => {
 
 confirmProjectForm.addEventListener('click', () => {
   projectDialog.close();
-  console.log(projectTitle.value);
   projectNum ++;
   noteArrayDefault.push([]);
-  console.log(noteArrayDefault)
-  console.log(projectNum)
+  displayProject(projectTitle.value);
+  project();
   // create new array
   // let project1 = new makeProjectObject(projectTitle.value);
   // console.log(project1);
@@ -84,16 +87,48 @@ closeForm.addEventListener('click', () => {
 
 confirmForm.addEventListener('click', () => {
   noteDialog.close();
-  console.log(title.value)
-  console.log(description.value)
-  console.log(date.value)
-  console.log(priority.value)
-  noteArrayDefault[1].push(new addToNotesObject(title.value,description.value,date.value,priority.value));
+  console.log(currentProject)
+  noteArrayDefault[currentProject].push(new addToNotesObject(title.value,description.value,date.value,priority.value));
   // console.log(project1)
   // project1.note1 = note1;
-  console.log(noteArrayDefault[projectNum-1]);
-  displayTask(noteArrayDefault[projectNum-1], noteArrayDefault[projectNum-1].length-1);
+  console.log(noteArrayDefault[currentProject]);
 });
+
+
+function project() { 
+  const projectList = document.querySelectorAll('.projects > li')
+  projectList.forEach((project) => {
+  project.addEventListener('click', (event) => {
+    clear()
+    if (noteArrayDefault[Array.from(projectList).indexOf(project)].length === 0) return;
+    for (let i = 0; i < noteArrayDefault[Array.from(projectList).indexOf(project)].length; i++) {
+      displayTask(noteArrayDefault[Array.from(projectList).indexOf(project)], i)
+    }
+  }
+)
+currentProject = Array.from(projectList).indexOf(project);
+console.log(currentProject)
+})
+}
+
+const clearBtn = document.getElementById("clearBtn")
+clearBtn.addEventListener('click', () => {
+  clear();
+})
+
+const projects = document.querySelector('.projects')
+projects.addEventListener('click', () => {
+  // const projectList = document.querySelectorAll('.projects > li')
+  // projectList.forEach((project) => {
+  //   project.addEventListener('click', (event) => {
+  //   currentProject = Array.from(projectList).indexOf(project)
+  //   console.log(currentProject)
+  //   })
+  // })
+  project();
+})
+
+
 
 
 // press new note button => display form => apply values of form to add task function => apply values to display Task function
