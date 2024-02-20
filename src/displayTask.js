@@ -1,21 +1,40 @@
-export default function displayTask(array, index) {
+import clear from "./clear";
+
+export default function displayTask(noteData, key) {
+  clear()
+  for (let note of noteData[key]) {
   const itemBox = document.querySelector('.itemBox')
   const noteCard = document.createElement('div')
   const noteTitle = document.createElement('div')
   const noteDescription = document.createElement('div')
   const noteDate = document.createElement('div')
   const notePriority = document.createElement('div')
+  const deleteNote = document.createElement('input')
   
-  noteTitle.textContent = array[index].title;
-  noteDescription.textContent = array[index].description;
-  noteDate.textContent = array[index].date;
-  notePriority.textContent = array[index].priority;
+  noteTitle.textContent = note.title;
+  noteDescription.textContent = note.description;
+  noteDate.textContent = note.date;
+  notePriority.textContent = note.priority;
+  deleteNote.type = 'checkbox';
+
+
+  deleteNote.classList.add('delete');
 
   itemBox.appendChild(noteCard);
   noteCard.appendChild(noteTitle);
   noteCard.appendChild(noteDescription);
   noteCard.appendChild(noteDate);
   noteCard.appendChild(notePriority);
+  noteCard.appendChild(deleteNote)
 
   noteCard.classList.add('listItem');
+
+  deleteNote.addEventListener('change', (event) => {
+    console.log('test')
+    noteCard.classList.remove('listItem');
+    noteCard.innerHTML = '';
+    delete(array[index]);
+  })
+}
+
 }
