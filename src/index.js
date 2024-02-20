@@ -98,7 +98,8 @@ confirmForm.addEventListener('click', () => {
 function project() { 
   const projectList = document.querySelectorAll('.projects > li')
   projectList.forEach((project) => {
-  project.addEventListener('click', (event) => {
+  project.addEventListener('click', () => {
+    currentProject = Array.from(projectList).indexOf(project);
     clear()
     if (noteArrayDefault[Array.from(projectList).indexOf(project)].length === 0) return;
     for (let i = 0; i < noteArrayDefault[Array.from(projectList).indexOf(project)].length; i++) {
@@ -106,7 +107,6 @@ function project() {
     }
   }
 )
-currentProject = Array.from(projectList).indexOf(project);
 console.log(currentProject)
 })
 }
