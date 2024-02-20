@@ -134,3 +134,7 @@ button {
   padding: 5px 15px;
   margin: 10px 0px;
 }
+
+.highlight {
+  color: yellow;
+}

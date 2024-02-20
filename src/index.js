@@ -3,6 +3,7 @@ import addToNotesObject from "./addToNotesObject";
 import makeProjectObject from "./makeProjectObject";
 import displayProject from "./displayProject";
 import clear from "./clear"
+import selectProject from "./selectProject"
 
 // Make Note Data object with initial default project element
 let noteData = {
@@ -52,6 +53,7 @@ confirmForm.addEventListener('click', () => {
   noteDialog.close();
   noteData[currentProject].push(new addToNotesObject(title.value,description.value,date.value,priority.value));
   console.log(noteData)
+  displayNotes(noteData, currentProject);
 });
 
 
@@ -87,21 +89,32 @@ confirmProjectForm.addEventListener('click', () => {
   currentProject = projectTitle.value;
   displayProject(projectTitle.value);
   clear();
-  console.log(noteData);
+  projectList = document.querySelectorAll('.projects > li')
+  console.log(projectList);
 });
 
-
-const projectList = document.querySelectorAll('.projects > li')
-projectList.forEach((project) => {
+// select project from list
+let projectList = document.querySelectorAll('.projects > li')
+const projects = document.querySelector('.projects')
+projects.addEventListener('click', () => {
+  projectList.forEach((project) => {
+    console.log(project)
     project.addEventListener('click', (event) => {
       console.log(event.target.className);
       currentProject = event.target.className;
       displayNotes(noteData, event.target.className);
+      selectProject(event.target.className);
     })
 })
+})
 
+// clear button
 
-
+const clearBtn = document.getElementById("clearBtn")
+clearBtn.addEventListener('click', () => {
+  console.log(noteData[currentProject] = []);
+  clear();
+})
 
 
 // function project() { 
@@ -120,10 +133,7 @@ projectList.forEach((project) => {
 // })
 // }
 
-// const clearBtn = document.getElementById("clearBtn")
-// clearBtn.addEventListener('click', () => {
-//   clear();
-// })
+
 
 // const projects = document.querySelector('.projects')
 // projects.addEventListener('click', () => {

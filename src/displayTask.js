@@ -2,6 +2,7 @@ import clear from "./clear";
 
 export default function displayTask(noteData, key) {
   clear()
+  let index = 0;
   for (let note of noteData[key]) {
   const itemBox = document.querySelector('.itemBox')
   const noteCard = document.createElement('div')
@@ -18,7 +19,8 @@ export default function displayTask(noteData, key) {
   deleteNote.type = 'checkbox';
 
 
-  deleteNote.classList.add('delete');
+  deleteNote.classList.add(index);
+  index++;
 
   itemBox.appendChild(noteCard);
   noteCard.appendChild(noteTitle);
@@ -30,11 +32,8 @@ export default function displayTask(noteData, key) {
   noteCard.classList.add('listItem');
 
   deleteNote.addEventListener('change', (event) => {
-    console.log('test')
-    noteCard.classList.remove('listItem');
-    noteCard.innerHTML = '';
-    delete(array[index]);
+    noteData[key].splice(event.target.className,1)
+    displayTask(noteData, key)
   })
 }
-
 }
