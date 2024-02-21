@@ -1,9 +1,10 @@
 import clear from "./clear";
+import infoPopup from "./infoPopup"
 
-export default function displayTask(noteData, key) {
+export default function displayTask(array) {
   clear()
   let index = 0;
-  for (let note of noteData[key]) {
+  for (let note of array) {
   const itemBox = document.querySelector('.itemBox')
   const noteCard = document.createElement('div')
   const noteTitle = document.createElement('div')
@@ -13,7 +14,7 @@ export default function displayTask(noteData, key) {
   const deleteNote = document.createElement('input')
   
   noteTitle.textContent = note.title;
-  noteDescription.textContent = note.description;
+  noteDescription.textContent = 'description...';
   noteDate.textContent = note.date;
   notePriority.textContent = note.priority;
   deleteNote.type = 'checkbox';
@@ -32,8 +33,12 @@ export default function displayTask(noteData, key) {
   noteCard.classList.add('listItem');
 
   deleteNote.addEventListener('change', (event) => {
-    noteData[key].splice(event.target.className,1)
-    displayTask(noteData, key)
+    array.splice(event.target.className,1)
+    displayTask(array)
+  })
+
+  noteDescription.addEventListener('click', () => {
+    infoPopup(note)
   })
 }
 }

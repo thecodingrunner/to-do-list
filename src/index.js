@@ -2,8 +2,8 @@ import displayNotes from "./displayTask";
 import addToNotesObject from "./addToNotesObject";
 import makeProjectObject from "./makeProjectObject";
 import displayProject from "./displayProject";
-import clear from "./clear"
-import selectProject from "./selectProject"
+import clear from "./clear";
+import selectProject from "./selectProject";
 
 // Make Note Data object with initial default project element
 let noteData = {
@@ -53,7 +53,7 @@ confirmForm.addEventListener('click', () => {
   noteDialog.close();
   noteData[currentProject].push(new addToNotesObject(title.value,description.value,date.value,priority.value));
   console.log(noteData)
-  displayNotes(noteData, currentProject);
+  displayNotes(noteData[currentProject]);
 });
 
 
@@ -87,7 +87,8 @@ confirmProjectForm.addEventListener('click', () => {
   projectDialog.close();
   noteData[projectTitle.value] = [];
   currentProject = projectTitle.value;
-  displayProject(projectTitle.value);
+  displayProject(noteData, projectTitle.value);
+  // displayProjects(noteData);
   clear();
   projectList = document.querySelectorAll('.projects > li')
   console.log(projectList);
@@ -102,7 +103,7 @@ projects.addEventListener('click', () => {
     project.addEventListener('click', (event) => {
       console.log(event.target.className);
       currentProject = event.target.className;
-      displayNotes(noteData, event.target.className);
+      displayNotes(noteData[event.target.className]);
       selectProject(event.target.className);
     })
 })
@@ -115,6 +116,65 @@ clearBtn.addEventListener('click', () => {
   console.log(noteData[currentProject] = []);
   clear();
 })
+
+
+const todayBtn = document.querySelector('.today');
+todayBtn.addEventListener('click', () => {
+  let today = [];
+  // console.log(new Date().toJSON().slice(0, 10))
+  Object.keys(noteData).forEach(key => {
+    const value = noteData[key];
+    for (let i = 0; i < value.length; i++) {
+      // console.log(`${value[i].date}`)
+      if (value[i].date == new Date().toJSON().slice(0, 10)) {
+      today.push(value[i]);
+      // console.log(today);
+    }
+  }
+});
+selectProject('Today')
+displayNotes(today)
+})
+
+
+const urgentBtn = document.querySelector('.urgent');
+urgentBtn.addEventListener('click', () => {
+  let urgent = [];
+  Object.keys(noteData).forEach(key => {
+    const value = noteData[key];
+    for (let i = 0; i < value.length; i++) {
+      if (value[i].priority == 1) {
+      urgent.push(value[i]);
+      // console.log(urgent);
+    }
+  }
+});
+selectProject('Urgent')
+displayNotes(urgent)
+})
+
+
+
+
+
+
+
+// delete project
+// delBtn.addEventListener('click', () => {
+//   console.log('check')
+// })
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 // function project() { 
