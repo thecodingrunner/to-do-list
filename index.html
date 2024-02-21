@@ -6,8 +6,13 @@
   <title>Document</title>
   <link rel="stylesheet" href="../src/style.css">
   <script src="https://kit.fontawesome.com/8c3d1ec2cc.js" crossorigin="anonymous"></script>
+  <!-- kode mono font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Kode+Mono:wght@400..700&display=swap" rel="stylesheet">
 </head>
 <body>
+  <!-- Sidebar -->
   <div class="sidebar">
     <div class="profile">
       <img src="../src/portrait-edit.png" alt="portrait">
@@ -21,7 +26,11 @@
     </ul>
     <div class="projects">
       <h2>Projects</h2>
-      <button class="newProject">New Project</button>
+      <ul class="projects" id="projectBar">
+        <!-- <li class="default">Default</li> -->
+      </ul>
+      <button id="projectBtn">New Project</button>
+      <button id="clearBtn">Clear</button>
     </div>
   </div>
 
@@ -29,10 +38,9 @@
     <h1 class="projectName">Project Name</h1>
     <div class="itemBox"></div>
   </div>
-  <script src="main.js" defer></script>
 
   <!-- Form dialog box -->
-  <dialog>
+  <dialog id="noteDialog">
     <form id="form">
       <div class="nowrap">
         <label for="title">Title</label><input type="text" name="title" id="title">
@@ -52,5 +60,18 @@
       </div>
     </form>
   </dialog>
+
+  <dialog id="projectDialog">
+    <form id="projectForm">
+      <div class="nowrap">
+        <label for="projectTitle">Title</label><input type="text" name="projectTitle" id="projectTitle">
+      </div>
+      <div class="nowrap">
+        <button type="submit" class="projectSubmit">Submit</button>
+        <button type="button" class="closeProjectForm">Close</button>
+      </div>
+    </form>
+  </dialog>
+  <script src="main.js" defer></script>
 </body>
 </html>
