@@ -5,17 +5,27 @@ import displayProject from "./displayProject";
 import clear from "./clear";
 import selectProject from "./selectProject";
 
+console.log(JSON.parse(localStorage.getItem("noteData")).default);
 // Make Note Data object with initial default project element
-let noteData = {
-  default: [],
-};
+if (JSON.parse(localStorage.getItem("noteData")).default === undefined || !localStorage.getItem("noteData")) {
+  let noteDatas = {
+    default: [],
+  };
+  localStorage.setItem("noteData", JSON.stringify(noteDatas));
+}
 
+let noteData = JSON.parse(localStorage.getItem("noteData"));
+
+function displayNoteData() {
+  Object.keys(noteData).forEach((key) => {
+    displayProject(noteData, key)
+  })
+}
+
+displayNoteData()
 
 let currentProject = 'default';
 let classNum = 0;
-
-
-
 
 
 
@@ -52,8 +62,9 @@ closeForm.addEventListener('click', () => {
 confirmForm.addEventListener('click', () => {
   noteDialog.close();
   noteData[currentProject].push(new addToNotesObject(title.value,description.value,date.value,priority.value));
-  console.log(noteData)
   displayNotes(noteData[currentProject]);
+  localStorage.setItem('noteData', JSON.stringify(noteData));
+  console.log(JSON.parse(localStorage.getItem("noteData")));
 });
 
 
@@ -91,7 +102,8 @@ confirmProjectForm.addEventListener('click', () => {
   // displayProjects(noteData);
   clear();
   projectList = document.querySelectorAll('.projects > li')
-  console.log(projectList);
+  localStorage.setItem('noteData', JSON.stringify(noteData));
+  console.log(JSON.parse(localStorage.getItem("noteData")));
 });
 
 // select project from list
@@ -99,9 +111,7 @@ let projectList = document.querySelectorAll('.projects > li')
 const projects = document.querySelector('.projects')
 projects.addEventListener('click', () => {
   projectList.forEach((project) => {
-    console.log(project)
     project.addEventListener('click', (event) => {
-      console.log(event.target.className);
       currentProject = event.target.className;
       displayNotes(noteData[event.target.className]);
       selectProject(event.target.className);
@@ -113,7 +123,6 @@ projects.addEventListener('click', () => {
 
 const clearBtn = document.getElementById("clearBtn")
 clearBtn.addEventListener('click', () => {
-  console.log(noteData[currentProject] = []);
   clear();
 })
 
@@ -121,14 +130,11 @@ clearBtn.addEventListener('click', () => {
 const todayBtn = document.querySelector('.today');
 todayBtn.addEventListener('click', () => {
   let today = [];
-  // console.log(new Date().toJSON().slice(0, 10))
   Object.keys(noteData).forEach(key => {
     const value = noteData[key];
     for (let i = 0; i < value.length; i++) {
-      // console.log(`${value[i].date}`)
       if (value[i].date == new Date().toJSON().slice(0, 10)) {
       today.push(value[i]);
-      // console.log(today);
     }
   }
 });
@@ -145,7 +151,6 @@ urgentBtn.addEventListener('click', () => {
     for (let i = 0; i < value.length; i++) {
       if (value[i].priority == 1) {
       urgent.push(value[i]);
-      // console.log(urgent);
     }
   }
 });
@@ -157,12 +162,6 @@ displayNotes(urgent)
 
 
 
-
-
-// delete project
-// delBtn.addEventListener('click', () => {
-//   console.log('check')
-// })
 
 
 

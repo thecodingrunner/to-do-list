@@ -35,6 +35,7 @@ export default function displayTask(array) {
   deleteNote.addEventListener('change', (event) => {
     array.splice(event.target.className,1)
     displayTask(array)
+    localStorage.setItem('noteData', JSON.stringify(noteData));
   })
 
   noteDescription.addEventListener('click', () => {

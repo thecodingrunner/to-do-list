@@ -4,4 +4,5 @@ export default function clearProject(noteData, title) {
   project[0].remove();
   delete noteData[title];
   console.log(noteData);
+  localStorage.setItem('noteData', JSON.stringify(noteData));
 }

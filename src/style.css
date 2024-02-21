@@ -9,8 +9,8 @@ body, html {
 
 .sidebar {
   background-color: lightgrey;
-  width: 15vw;
-  height: 100vh;
+  width: auto;
+  height: auto;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -172,7 +172,7 @@ button {
   align-self: flex-end;
 }
 
-@media screen and (max-width: 1000px) {
+@media screen and (max-width: 1200px) {
   body {
     display: flex;
     flex-direction: column;
@@ -188,13 +188,23 @@ button {
   .sidebar {
     width: 100vw;
     flex-direction: row;
-    height: 20vh;
+    height: auto;
     justify-content: space-around;
+    align-items: center;
+    text-align: center;
   }
 
   ul, li, img, i, button { 
     margin: 0;
     /* padding: 0; */
+  }
+
+  i {
+    margin-right: 5px;
+  }
+
+  li {
+    margin-bottom: 10px;
   }
 
   ul {
@@ -207,7 +217,7 @@ button {
 
   #taskBtn {
     margin-left: 0px;
-    margin-bottom: 15px;
+    margin-bottom: 5px;
   }
 
   .profile {
